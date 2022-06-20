@@ -2,6 +2,7 @@
 short url fastapi service
 
 run the fastapiservce
+
 uvicorn main:app --reload
 
 client
