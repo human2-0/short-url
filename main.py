@@ -34,7 +34,7 @@ def make_url(url: schemas.UrlIn, request: Request, db: Session = Depends(get_db)
             status_code=400,
             detail="The url already registered. Previously created short url: " + db_url.shorturl
         )
-    schemas.UrlOut.shorturl = utils.create_shorturl(request.url_for('index'))
+    schemas.UrlOut.shorturl = utils.create_shorturl()
     output = {'longurl': url.longurl, 'shorturl': schemas.UrlOut.shorturl}
     targeturl = crud.create_url(db=db, url=output)
     return targeturl
