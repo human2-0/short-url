@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Depends, Request
+from fastapi import FastAPI, HTTPException, Depends, Response, status
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
@@ -27,13 +27,17 @@ def index():
 
 
 @app.post('/url/', response_model=schemas.UrlOut)
-def make_url(url: schemas.UrlIn, request: Request, db: Session = Depends(get_db)):
+def make_url(url: schemas.UrlIn, response: Response, db: Session = Depends(get_db)):
     db_url = crud.get_url(db, longurl=url.longurl)
+
     if db_url:
         raise HTTPException(
-            status_code=400,
+            status_code=200,
             detail="The url already registered. Previously created short url: " + db_url.shorturl
         )
+    else:
+        response.status_code = status.HTTP_201_CREATED
+
     schemas.UrlOut.shorturl = utils.create_shorturl()
     output = {'longurl': url.longurl, 'shorturl': schemas.UrlOut.shorturl}
     targeturl = crud.create_url(db=db, url=output)
