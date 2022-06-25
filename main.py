@@ -48,6 +48,6 @@ def make_url(url: schemas.UrlIn, response: Response, db: Session = Depends(get_d
 def shorturlflow(shorturl: str, db: Session = Depends(get_db)):
     flow = crud.get_shorturlflow(db=db, shorturl=shorturl)
     if flow is not None:
-        return RedirectResponse(flow.longurl)
+        return RedirectResponse(flow.longurl, status_code=status.HTTP_301_MOVED_PERMANENTLY)
     else:
         raise HTTPException(status_code=400, detail="The path does not exist.")
