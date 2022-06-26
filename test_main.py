@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
-import main
 
+from fastapilush import main
 
 client = TestClient(main.app)
 
@@ -13,8 +13,8 @@ def test_index():
 
 def test_url_exists():
     response = client.post("/url/", json={"longurl": "http://google.com"})
-    assert response.status_code == 400
-    assert response.json() == {"detail": "The url already registered. Previously created short url: 5vR0lrDz"}
+    assert response.status_code == 200
+    assert response.json() == {"detail": "The url already registered. Previously created short url: tBu0tWIG"}
 
 
 def test_invalid_url():
