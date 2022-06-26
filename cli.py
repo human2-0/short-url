@@ -1,6 +1,7 @@
+import webbrowser
+
 import click
 import requests
-import webbrowser
 
 
 @click.group()
