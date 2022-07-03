@@ -6,7 +6,8 @@ to run the service:
 > python main.py
 
 test the app
-> pytest
+> python -m pytest
 
 CLI
-> python cli.py
+> python cli.py make-url
+> python cli.py url-flow
