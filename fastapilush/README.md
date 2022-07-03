@@ -6,6 +6,8 @@ to run the service:
 > python main.py
 
 test the app
+
+pip install httpx asgi-lifespan pytest-asyncio
 > python -m pytest
 
 CLI
